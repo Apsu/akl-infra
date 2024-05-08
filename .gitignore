@@ -19,3 +19,9 @@
 
 # Go workspace file
 go.work
+
+# Air tmp dir
+tmp/
+
+# Binary dir
+bin/

@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Root(ctx echo.Context) error {
+func Api(ctx echo.Context) error {
 	banner := `
 kkkkkkkOOO000Ol'...o000000000000OOOOkkkkkkkkkkkOOOOkkkkkkkOOOkkkOOOOOOOOkkOOOO
 kkkkkkkOOOO00k:.  .lO00O000000OOOOOOkkkkkkkkkkkOOOOkkkkkkkkOOkkkkkkOOOkkkkkkOO
