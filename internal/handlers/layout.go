@@ -8,7 +8,7 @@ import (
 	"github.com/charmbracelet/log"
 	"github.com/labstack/echo/v4"
 
-	"github.com/apsu/akl-infra/internal/types"
+	"github.com/akl-infra/akl.gg/internal/types"
 )
 
 func Layout(ctx echo.Context) error {

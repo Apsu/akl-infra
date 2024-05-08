@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/apsu/akl-infra/internal/handlers"
+	"github.com/akl-infra/akl.gg/internal/handlers"
 	"github.com/charmbracelet/log"
 	"github.com/labstack/echo/v4"
 )

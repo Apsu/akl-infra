@@ -1,4 +1,4 @@
-module github.com/apsu/akl-infra
+module github.com/akl-infra/akl.gg
 
 go 1.22.2
 
