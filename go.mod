@@ -5,6 +5,7 @@ go 1.22.2
 require (
 	github.com/charmbracelet/log v0.4.0
 	github.com/labstack/echo/v4 v4.12.0
+	golang.org/x/crypto v0.22.0
 )
 
 require (
@@ -22,7 +23,6 @@ require (
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
-	golang.org/x/crypto v0.22.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/sys v0.19.0 // indirect
