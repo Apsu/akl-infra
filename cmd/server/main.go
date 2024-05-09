@@ -9,6 +9,15 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+func ResponseHeaders(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(ctx echo.Context) error {
+		ctx.Response().Header().Set(echo.HeaderContentSecurityPolicy, "default-src 'self'")
+		ctx.Response().Header().Set(echo.HeaderXContentTypeOptions, "nosniff")
+		ctx.Response().Header().Set(echo.HeaderReferrerPolicy, "no-referrer")
+		return next(ctx)
+	}
+}
+
 func Router() {
 	api := echo.New()
 	api.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
@@ -25,8 +34,8 @@ func Router() {
 			return nil
 		},
 	}))
+	api.Use(ResponseHeaders)
 
-	// api.GET("/", handlers.Web)
 	api.Static("/", "web")
 	api.GET("/api", handlers.Api)
 	api.GET("/api/layouts", handlers.Layouts)
