@@ -14,7 +14,7 @@ import (
 
 func Server(api *echo.Echo) {
 	go func() {
-		if _, ok := os.LookupEnv("AKL_PROD"); ok {
+		if val, ok := os.LookupEnv("AKL_PROD"); ok && val == "true" {
 			api.AutoTLSManager.Cache = autocert.DirCache("/opt/cache")
 			if err := api.StartAutoTLS(":443"); err != http.ErrServerClosed {
 				log.Error(err)
