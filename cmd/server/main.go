@@ -1,10 +1,10 @@
 package main
 
 import (
-	// "github.com/akl-infra/akl.gg/internal/auth"
-	"github.com/akl-infra/akl.gg/internal/handlers"
-	"github.com/akl-infra/akl.gg/internal/setup"
-	"github.com/akl-infra/akl.gg/internal/storage"
+	// "github.com/akl-infra/api/internal/auth"
+	"github.com/akl-infra/api/internal/handlers"
+	"github.com/akl-infra/api/internal/setup"
+	"github.com/akl-infra/api/internal/storage"
 	"github.com/charmbracelet/log"
 	"github.com/labstack/echo/v4"
 	// "github.com/labstack/echo/v4/middleware"

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/akl-infra/akl.gg/internal/storage"
+	"github.com/akl-infra/api/internal/storage"
 	"github.com/akl-infra/slf/v2"
 	"github.com/charmbracelet/log"
 	"github.com/go-git/go-git/v5"

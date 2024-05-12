@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/akl-infra/akl.gg/internal/storage"
+	"github.com/akl-infra/api/internal/storage"
 	"github.com/labstack/echo/v4"
 )
 
