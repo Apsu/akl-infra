@@ -23,10 +23,5 @@ func Middleware(api *echo.Echo) {
 	}))
 
 	api.Use(middleware.Recover())
-
-	secureConfig := middleware.DefaultSecureConfig
-	secureConfig.ContentSecurityPolicy = "default-src 'self'; script-src 'sha384-EfwldhYywH4qYH9vU8lMn+pd6pcH0kGpPUVJuwyHnj/5felkkIUVxf1wMAEX7rCY'; object-src 'none'; base-uri 'self'"
-	secureConfig.ReferrerPolicy = "no-referrer"
-	secureConfig.HSTSMaxAge = 31536000
-	api.Use(middleware.SecureWithConfig(secureConfig))
+	api.Use(middleware.SecureWithConfig(middleware.SecureConfig{HSTSMaxAge: 3600}))
 }
