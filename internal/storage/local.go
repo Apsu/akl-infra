@@ -19,12 +19,10 @@ func readLayout(name string) (slf.Layout, error) {
 	var slfLayout slf.Layout
 	data, err := os.ReadFile(Path + name)
 	if err != nil {
-		log.Error(err)
 		return slf.Layout{}, err
 	}
 	err = json.Unmarshal(data, &slfLayout)
 	if err != nil {
-		log.Error(err)
 		return slf.Layout{}, err
 	}
 	return slfLayout, nil
@@ -33,12 +31,10 @@ func readLayout(name string) (slf.Layout, error) {
 func writeLayout(layout slf.Layout) error {
 	data, err := json.Marshal(layout)
 	if err != nil {
-		log.Error(err)
 		return err
 	}
 	err = os.WriteFile(Path+layout.Name, data, 0644)
 	if err != nil {
-		log.Error(err)
 		return err
 	}
 	return nil
@@ -56,8 +52,9 @@ func Init(path string) error {
 		log.Error(err)
 		return err
 	}
+
 	for _, entry := range entries {
-		if !entry.IsDir() {
+		if !entry.IsDir() && !strings.HasPrefix(entry.Name(), ".") {
 			name := entry.Name()
 			layout, err := readLayout(name)
 			if err != nil {
@@ -87,5 +84,7 @@ func Put(layout slf.Layout) error {
 }
 
 func List() []string {
-	return sort.StringSlice(maps.Keys(Cache))
+	layouts := maps.Keys(Cache)
+	sort.Sort(sort.StringSlice(layouts))
+	return layouts
 }
