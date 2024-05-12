@@ -10,4 +10,5 @@ RUN go build -v -o /usr/local/bin/app ./cmd/server
 
 EXPOSE 80
 EXPOSE 443
+STOPSIGNAL SIGINT
 CMD ["app"]
