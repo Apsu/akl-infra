@@ -4,16 +4,14 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
-	"sort"
 	"strings"
 
 	"github.com/akl-infra/slf/v2"
 	"github.com/charmbracelet/log"
-	"golang.org/x/exp/maps"
 )
 
 var Path string
-var Cache map[string]slf.Layout = make(map[string]slf.Layout)
+var Cache = NewSyncCache()
 
 func readLayout(name string) (slf.Layout, error) {
 	var slfLayout slf.Layout
@@ -61,7 +59,7 @@ func Init(path string) error {
 				log.Error(err)
 				return err
 			}
-			Cache[name] = layout
+			Cache.Put(name, layout)
 		}
 	}
 
@@ -69,7 +67,7 @@ func Init(path string) error {
 }
 
 func Get(name string) (slf.Layout, error) {
-	if layout, ok := Cache[name]; ok {
+	if layout, ok := Cache.Get(name); ok {
 		return layout, nil
 	} else {
 		return slf.Layout{}, errors.New("Layout not found")
@@ -77,14 +75,12 @@ func Get(name string) (slf.Layout, error) {
 }
 
 func Put(layout slf.Layout) error {
-	Cache[layout.Name] = layout
+	Cache.Put(layout.Name, layout)
 	err := writeLayout(layout)
 
 	return err
 }
 
 func List() []string {
-	layouts := maps.Keys(Cache)
-	sort.Sort(sort.StringSlice(layouts))
-	return layouts
+	return Cache.List()
 }
