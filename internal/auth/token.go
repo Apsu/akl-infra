@@ -16,7 +16,7 @@ func readTokenFromFile(filePath string) (string, error) {
 }
 
 func TokenValidator(key string, c echo.Context) (bool, error) {
-	if token, err := readTokenFromFile("token.txt"); err != nil {
+	if token, err := readTokenFromFile("/opt/auth/token.txt"); err != nil {
 		return false, err
 	} else {
 		return key == token, nil
