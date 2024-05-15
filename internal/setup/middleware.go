@@ -6,8 +6,8 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func Middleware(api *echo.Echo) {
-	api.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+func Middleware(srv *echo.Echo) {
+	srv.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogStatus:   true,
 		LogURI:      true,
 		LogError:    true,
@@ -22,6 +22,6 @@ func Middleware(api *echo.Echo) {
 		},
 	}))
 
-	api.Use(middleware.Recover())
-	api.Use(middleware.SecureWithConfig(middleware.SecureConfig{HSTSMaxAge: 3600}))
+	srv.Use(middleware.Recover())
+	srv.Use(middleware.SecureWithConfig(middleware.SecureConfig{HSTSMaxAge: 3600}))
 }

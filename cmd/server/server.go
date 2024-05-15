@@ -12,15 +12,15 @@ import (
 	"golang.org/x/crypto/acme/autocert"
 )
 
-func Server(api *echo.Echo) {
+func Server(srv *echo.Echo) {
 	go func() {
 		if val, ok := os.LookupEnv("AKL_PROD"); ok && val == "true" {
-			api.AutoTLSManager.Cache = autocert.DirCache("/opt/cache")
-			if err := api.StartAutoTLS(":443"); err != http.ErrServerClosed {
+			srv.AutoTLSManager.Cache = autocert.DirCache("/opt/cache")
+			if err := srv.StartAutoTLS(":443"); err != http.ErrServerClosed {
 				log.Error(err)
 			}
 		} else {
-			if err := api.Start(":8080"); err != http.ErrServerClosed {
+			if err := srv.Start(":8080"); err != http.ErrServerClosed {
 				log.Error(err)
 			}
 		}
@@ -33,7 +33,7 @@ func Server(api *echo.Echo) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	if err := api.Shutdown(ctx); err != nil {
+	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal(err)
 	}
 }
