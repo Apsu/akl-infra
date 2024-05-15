@@ -16,6 +16,8 @@ func Server(srv *echo.Echo) {
 	go func() {
 		if val, ok := os.LookupEnv("AKL_PROD"); ok && val == "true" {
 			srv.AutoTLSManager.Cache = autocert.DirCache("/opt/cache")
+			srv.AutoTLSManager.Prompt = autocert.AcceptTOS
+			srv.AutoTLSManager.HostPolicy = autocert.HostWhitelist("akl.gg")
 			if err := srv.StartAutoTLS(":443"); err != http.ErrServerClosed {
 				log.Error(err)
 			}
