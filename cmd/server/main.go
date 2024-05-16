@@ -14,6 +14,7 @@ func main() {
 	log.Info("Booting up")
 
 	site := echo.New()
+	site.Pre(middleware.RemoveTrailingSlash())
 	site.IPExtractor = echo.ExtractIPDirect()
 	setup.Middleware(site)
 
