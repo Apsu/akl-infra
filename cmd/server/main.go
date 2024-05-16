@@ -13,10 +13,11 @@ import (
 func main() {
 	log.Info("Booting up")
 
-	srv := echo.New()
-	setup.Middleware(srv)
+	site := echo.New()
+	site.IPExtractor = echo.ExtractIPDirect()
+	setup.Middleware(site)
 
-	api := srv.Group("/api")
+	api := site.Host("api.akl.gg")
 
 	// Public
 	api.GET("/", handlers.Banner)
@@ -27,5 +28,5 @@ func main() {
 	api.PUT("/layout", handlers.AddLayout, middleware.KeyAuth(auth.TokenValidator))
 
 	storage.Init("layouts")
-	Server(srv)
+	Server(site)
 }
