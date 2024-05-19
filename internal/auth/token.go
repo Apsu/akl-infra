@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func readTokenFromFile(filePath string) (string, error) {
@@ -15,10 +16,10 @@ func readTokenFromFile(filePath string) (string, error) {
 	return strings.TrimSpace(string(content)), nil
 }
 
-func TokenValidator(key string, c echo.Context) (bool, error) {
+var KeyAuth = middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
 	if token, err := readTokenFromFile("/opt/auth/token.txt"); err != nil {
 		return false, err
 	} else {
 		return key == token, nil
 	}
-}
+})

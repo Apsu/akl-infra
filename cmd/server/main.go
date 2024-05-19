@@ -24,10 +24,14 @@ func main() {
 	api.GET("/", handlers.Banner)
 	api.GET("/layouts", handlers.Layouts)
 	api.GET("/layout/:name", handlers.Layout)
+	api.GET("/analyzers", handlers.Analyzers)
+	api.GET("/analyze/:name", handlers.Analyze)
 
 	// Protected
-	api.PUT("/layout", handlers.AddLayout, middleware.KeyAuth(auth.TokenValidator))
+	api.PUT("/layout", handlers.AddLayout, auth.KeyAuth)
 
 	storage.Init("layouts")
+	corpora.Init("corpora")
+	analyzers.Init()
 	Server(site)
 }
