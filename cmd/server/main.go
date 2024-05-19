@@ -5,6 +5,7 @@ import (
 	"github.com/akl-infra/api/internal/handlers"
 	"github.com/akl-infra/api/internal/setup"
 	"github.com/akl-infra/api/internal/storage"
+	"github.com/akl-infra/api/pkg/analyzer/mini"
 	"github.com/charmbracelet/log"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -31,7 +32,7 @@ func main() {
 	api.PUT("/layout", handlers.AddLayout, auth.KeyAuth)
 
 	storage.Init("layouts")
-	corpora.Init("corpora")
-	analyzers.Init()
+	// corpora.Init("corpora")
+	mini.Init()
 	Server(site)
 }

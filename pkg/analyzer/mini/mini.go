@@ -4,10 +4,20 @@ import (
 	"strings"
 
 	"github.com/akl-infra/slf/v2"
+	"github.com/charmbracelet/log"
 )
 
-func Init() {
+type Corpus []Ngram
 
+var Corpora map[string]Corpus
+
+func Init() {
+	// TODO: Read all corpora
+	// Load corpora into local map/cache
+	Corpora = make(map[string]Corpus)
+	Corpora["monkeyracer"] = LoadCorpus("corpora/monkeyracer/trigrams.json")
+	// Load table into local map
+	Table = LoadTable()
 }
 
 // AnalyzeTrigrams
@@ -15,7 +25,10 @@ func Init() {
 // - ignore spaces
 // - case-insensitive
 // - sfb is double counted
-func Analyze(layout *slf.Layout, corpus *[]Ngram) []float64 {
+
+// TODO: Change corpus to `name string` to load from map
+// func Analyze(layout *slf.Layout, corpus *[]Ngram) []float64 {
+func Analyze(layout *slf.Layout, corpus string) []float64 {
 	keyMap := make(map[rune]uint16)
 	counter := make([]float64, MetricNum)
 
@@ -28,7 +41,7 @@ func Analyze(layout *slf.Layout, corpus *[]Ngram) []float64 {
 		finger := uint16(key.Finger)
 		keyMap[char] = finger
 	}
-	for _, trigram := range *corpus {
+	for _, trigram := range Corpora[corpus] {
 		gram0 := trigram.chars[0]
 		gram1 := trigram.chars[1]
 		gram2 := trigram.chars[2]
@@ -47,6 +60,9 @@ func Analyze(layout *slf.Layout, corpus *[]Ngram) []float64 {
 			continue
 		}
 		gramType := Table[fingerHash]
+		if gramType == Sfr {
+			log.Info(trigram)
+		}
 		counter[gramType] += trigram.freq
 	}
 
@@ -57,5 +73,6 @@ func Analyze(layout *slf.Layout, corpus *[]Ngram) []float64 {
 	for index, freq := range counter {
 		counter[index] = freq / total
 	}
+	counter[Sfb] /= 2
 	return counter
 }

@@ -41,6 +41,7 @@ var mapStrMetric = map[string]Metric{
 	"outoneh":     OutOne,
 	"inroll":      InRoll,
 	"outroll":     OutRoll,
+	"unknown":     Unknown,
 }
 
 var mapStrFinger = map[string]uint16{
@@ -62,13 +63,14 @@ var mapMetricStr = map[Metric]string{
 	Alt:       "alt",
 	AltSfs:    "alt-sfs",
 	Red:       "red",
-	RedSfs:    "red-sfs",
 	BadRed:    "bad-red",
+	RedSfs:    "red-sfs",
 	BadRedSfs: "bad-red-sfs",
 	InOne:     "inoneh",
 	OutOne:    "outoneh",
 	InRoll:    "inroll",
 	OutRoll:   "outroll",
+	Unknown:   "unknown",
 }
 
 var mapFingerStr = map[uint16]string{
